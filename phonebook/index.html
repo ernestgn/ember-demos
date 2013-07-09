@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+    <head>
+        <meta name="author" content="Ernest Ngaruiya">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Phonebook</title>
+        <link rel="stylesheet" type="text/css" href="css/app.css"/>
+        <script type="text/javascript" src="js/lib/jquery-2.0.0.js"></script>
+        <script type="text/javascript" src="js/lib/handlebars-1.0.0-rc.4.js"></script>
+        <script type="text/javascript" src="js/lib/ember-1.0.0-rc.3-437-g8b01872.js"></script>
+        <script type="text/javascript" src="js/app/touch.js"></script>
+        <script type="text/javascript" src="js/lib/ember-data-12.js"></script>
+        <script type="text/javascript" src="js/lib/zynga-scroller/Animate.e3e4f0f38ffea6b0aef98135372e4305d7f6e53b.js">
+        </script>
+        <script type="text/javascript" src="js/lib/zynga-scroller/Raf.e3e4f0f38ffea6b0aef98135372e4305d7f6e53b.js">
+        </script>
+        <script type="text/javascript" src="js/lib/zynga-scroller/Scroller.e3e4f0f38ffea6b0aef98135372e4305d7f6e53b.js">
+        </script>
+        <script type="text/javascript" src="js/lib/list-view.js"></script>
+        <script type="text/javascript" src="js/app/app.js"></script>
+        <script type="text/javascript" src="js/app/fixtures.js"></script>
+    </head>
+    <body>
+        <script type="text/x-handlebars" data-template-name="application">
+            <div id="mainArea">
+                {{ outlet }}
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="contacts">
+            <div id="header"><h1>Contacts</h1></div>
+            {{#view App.LetterNavView }}
+                <div id="letterNav">
+                </div>
+                <div id="pointer">
+                    <p>{{ selectedChar }}</p>
+                </div>
+            {{/view}}
+            <div id="contactsContainer">
+                {{#collection App.ContactsListView contentBinding="contactListItems"}}
+                    <div class="contactItemContainer"  {{action callContact this}}>
+                        {{#if isLabel }}
+                            <h1>{{ name }}</h1>
+                        {{else}}
+                            <h2>{{ name }}</h2>
+                            <h3>{{ number }}</h3>
+                        {{/if}}
+                    </div>
+                    <hr>
+                {{/collection}}
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="contact">
+            <div id="contact">
+                <div id="contactPhoto">
+                    <img {{bindAttr src="photo"}}/>
+                </div>
+                <h2>Calling {{ name }}..</h2>
+                {{#linkTo "contacts" id="endCallButton"}}<h3>End Call</h3>{{/linkTo}}
+            </div>
+        </script>
+    </body>
+</html>
+
